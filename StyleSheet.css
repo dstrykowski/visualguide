@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
+
+p {
+  line-height: 1.75;
+  font-size: 16px;
+  font-family: "Libre Baskerville", Baskerville, serif;
+  margin-bottom : 16px;
+}
+
+h1, h2, h3, h4, h5 {
+  font-family: "Libre Baskerville", Baskerville, serif;
+  margin-top: 24px;
+  font-weight: bold;
+}
+
+h6 {
+  font-family: Helvetica, "Helvetica Neue", Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold;
+  color: #CD0000;
+}
+
+a:link, a:visited {
+  color: #CD0000;
+  text-decoration: none;
+}
+
+a:hover, a:active {
+  color: red;
+  text-decoration: none;
+}
+
+hr {
+  border: 2px solid #CD0000;
+}

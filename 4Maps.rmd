@@ -1,0 +1,83 @@
+---
+runtime: shiny
+output:
+  html_document:
+    css: "StyleSheet.css"
+title: "A Visual Guide to Some Nineteenth-Century Composers and Their Publishers"
+---
+
+Derek R. Strykowski, _University at Buffalo_
+
+
+![](Cover.png)
+
+###### [Introduction](index.rmd)&nbsp;&nbsp;&nbsp; [I.&nbsp;The&nbsp;Composers](2Composers.rmd)&nbsp;&nbsp;&nbsp; [II.&nbsp;The&nbsp;Publishers](3Publishers.rmd)&nbsp;&nbsp;&nbsp; [III.&nbsp;Maps](4Maps.rmd)&nbsp;&nbsp;&nbsp; [Sources](5Sources.rmd)&nbsp;&nbsp;&nbsp;  
+
+&nbsp;  
+
+## III. Maps
+On a geographic basis, the music publishing firms that appear in the guide range from G. Ricordi in Milan to George H. Wigand in Göttingen, and from Novello in London to P. Iurgenson in Moscow. With the exception of several New York–based outfits, all of the publishers and journals were headquartered in Europe.
+
+The composers represented here worked most often with publishers who were based in the same country, especially with regard to the publication of first editions (as shown here). Nevertheless, some published first editions aboard. Beethoven, for example, saw a significant number of works first printed in London. Towards the end of the nineteenth century, a few composers (such as Antonín Dvořák) even began to sell their music to American publishers in New York City.
+
+Select a composer from the menu below to see where his or her publishers were located on the map.
+
+
+```{r, echo = FALSE, message = FALSE}
+
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+library(shiny)
+library(leaflet)
+
+composer_publishers <- read.csv(file = 'ComposerPublishers.csv')
+
+composer_choices <- unique(composer_publishers$Composer, 
+                           incomparables = FALSE) %>% sort
+
+selectInput("chosen_composer", 
+            label = "Select a composer:", 
+            choices = composer_choices, 
+            selected = "Beethoven", 
+            selectize = FALSE)
+
+output$ComposerName <- renderText(input$chosen_composer)
+
+```
+
+### Where Was the Music of  `r textOutput("ComposerName", inline = TRUE)` Published?
+
+```{r, echo = FALSE, message = FALSE}
+output$publisher_map <- renderLeaflet({
+chosen_publishers <- subset(composer_publishers, 
+                 Composer == input$chosen_composer, 
+                 select = c(1:6))
+
+chosen_publishers$Publisher <- c(paste("<b>", as.character(chosen_publishers$Publisher), "</b></br> (First editions:", as.character(chosen_publishers$Editions), ")"))
+
+leaflet(chosen_publishers
+    ) %>%
+    addProviderTiles(providers$Stamen.TonerLite,
+        options = providerTileOptions(noWrap = TRUE)
+    ) %>%
+    addMarkers(~Longitude, ~Latitude, popup = ~Publisher, 
+                 clusterOptions = markerClusterOptions
+     ) 
+})
+
+leafletOutput("publisher_map", width = "100%", height = "800px")
+
+output$ComposerName2 <- renderText(input$chosen_composer)
+```
+
+&nbsp;  
+
+#### How to Cite This Visualization
+Strykowski, Derek. R. “Where Was the Music of  `r textOutput("ComposerName2", inline = TRUE)` Published?” Data visualization. *A Visual Guide to Some Nineteenth-Century Composers and Their Publishers.* 2020. https://dstrykowski.shinyapps.io/visualguide/
+
+<hr>
+
+©2020 [Derek R. Strykowski](https://dstrykowski.com). This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/). The code is available on [GitHub](https://github.com/dstrykowski/visualguide).  
+&nbsp;  
+&nbsp;  

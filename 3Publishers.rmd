@@ -1,0 +1,103 @@
+---
+runtime: shiny
+output:
+  html_document:
+    css: "StyleSheet.css"
+title: "A Visual Guide to Some Nineteenth-Century Composers and Their Publishers"
+---
+
+Derek R. Strykowski, _University at Buffalo_
+
+
+![](Cover.png)
+
+###### [Introduction](index.rmd)&nbsp;&nbsp;&nbsp;&nbsp; [I.&nbsp;The&nbsp;Composers](2Composers.rmd)&nbsp;&nbsp;&nbsp;&nbsp; [II.&nbsp;The&nbsp;Publishers](3Publishers.rmd)&nbsp;&nbsp;&nbsp;&nbsp;  [III.&nbsp;Maps](4Maps.rmd)&nbsp;&nbsp;&nbsp;&nbsp;  [Sources](5Sources.rmd)&nbsp;&nbsp;&nbsp;&nbsp;
+
+&nbsp;  
+
+## II. The Publishers
+The music publishers represented in the guide include such venerable firms as Breitkopf & Härtel and C. F. Peters (both of Leipzig) as well as those of more modest reputation. A variety of musical periodicals—such as *Le Protée*, where Hector Berlioz published the song “Je crois en vous” in 1834—are also included in the data.
+
+Most nineteenth-century composers dealt with a broad range of publishing firms and musical periodicals as they sought to earn a living from the music they had written. Even so, the charts available below show how the network of professional relationships that each composer cultivated was unique in both size and proportions.
+
+For example, Ludwig van Beethoven published a total of 279 authorized first editions during his lifetime through dealings with nearly fifty music publishers and journals. Artaria & Co. is responsible for having issued 42 of Beethoven’s works, more than any other publisher, yet this represents only 15 percent of the composer’s total output. 
+
+On the other hand, Johannes Brahms published a total of 132 authorized first editions during his lifetime, mainly through his professional association with just one publisher: Fritz Simrock in Bonn (later Berlin). As a result of his longstanding contract with Simrock, Brahms ultimately published more works through a single publisher than Beethoven.
+
+Select a composer from the menu below to view information about the publishers who printed his or her music in first edition.
+
+```{r, echo = FALSE, message = FALSE}
+library(ggplot2)
+library(tidyverse)
+library(dplyr)
+library(shiny)
+library(networkD3)
+library(DT)
+
+composer_publishers <- read.csv(file = 'ComposerPublishers.csv')
+
+composer_choices <- unique(composer_publishers$Composer, 
+                           incomparables = FALSE) %>% sort
+
+selectInput("chosen_composer", 
+            label = "Select a composer:", 
+            choices = composer_choices, 
+            selected = "Beethoven", 
+            selectize = FALSE)
+
+output$ComposerName <- renderText(input$chosen_composer)
+```
+
+### Who Published the Music of  `r textOutput("ComposerName", inline = TRUE)`?
+(Number of Editions)
+
+```{r, echo = FALSE, message = FALSE}
+output$publishing_network <- renderSankeyNetwork({
+chosen_publishers <- subset(composer_publishers, 
+                 Composer == input$chosen_composer, 
+                 select = c(1, 2, 3, 6))
+
+chosen_publishers$Publisher <- c(paste(as.character(chosen_publishers$Publisher), " (", as.character(chosen_publishers$Editions), ")"))
+
+node_names <- unique(c(as.character(chosen_publishers$Composer), 
+  as.character(chosen_publishers$Publisher)))
+nodes <- data.frame(name = node_names)
+
+links <- data.frame(
+  source = match(chosen_publishers$Composer, node_names) - 1, 
+  target = match(chosen_publishers$Publisher, node_names) - 1, 
+  value = chosen_publishers$Editions)
+ 
+sankeyNetwork(Links = links, Nodes = nodes,
+              Source = "source", Target = "target",
+              Value = "value", NodeID = "name", 
+              fontSize = 12, sinksRight = FALSE)
+})
+
+sankeyNetworkOutput("publishing_network", width = "100%", height = "1200px")
+
+output$ComposerName2 <- renderText(input$chosen_composer)
+
+```
+
+### Data Explorer: Publishers of  `r textOutput("ComposerName2", inline = TRUE)`
+
+```{r, echo = FALSE, message = FALSE}
+renderDataTable(subset(composer_publishers, 
+            Composer == input$chosen_composer, 
+            select = c(2:3, 6)), rownames = FALSE)
+
+output$ComposerName3 <- renderText(input$chosen_composer)
+output$ComposerName4 <- renderText(input$chosen_composer)
+```
+
+#### How to Cite These Visualizations
+Strykowski, Derek R. “Who Published the Music of  `r textOutput("ComposerName3", inline = TRUE)`?” Data visualization. *A Visual Guide to Some Nineteenth-Century Composers and Their Publishers.* 2020. https://dstrykowski.shinyapps.io/visualguide/
+
+Strykowski, Derek R. “Data Explorer: Publishers of  `r textOutput("ComposerName4", inline = TRUE)`.” Interactive table. *A Visual Guide to Some Nineteenth-Century Composers and Their Publishers.* 2020. https://dstrykowski.shinyapps.io/visualguide/
+
+<hr>
+
+©2020 [Derek R. Strykowski](https://dstrykowski.com). This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/). The code is available on [GitHub](https://github.com/dstrykowski/visualguide).  
+&nbsp;  
+&nbsp;  

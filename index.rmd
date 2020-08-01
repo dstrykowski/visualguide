@@ -1,0 +1,35 @@
+---
+output:
+  html_document:
+    css: "StyleSheet.css"
+title: "A Visual Guide to Some Nineteenth-Century Composers and Their Publishers"
+---
+
+Derek R. Strykowski, _University at Buffalo_
+
+![](Cover.png)
+
+###### [Introduction](index.rmd)&nbsp;&nbsp;&nbsp; [I.&nbsp;The&nbsp;Composers](2Composers.rmd)&nbsp;&nbsp;&nbsp; [II.&nbsp;The Publishers](3Publishers.rmd)&nbsp;&nbsp;&nbsp; [III.&nbsp;Maps](4Maps.rmd)&nbsp;&nbsp;&nbsp; [Sources](5Sources.rmd)&nbsp;&nbsp;&nbsp;  
+
+&nbsp;  
+
+## Introduction
+Welcome! This ongoing data visualization project investigates a number of prominent nineteenth-century composers and the publishers responsible for issuing their works in first edition. Reissued works, unauthorized editions, and those published after the composer’s death are not included in the data. The visualizations that follow reveal both the frequency with which prominent composers were able to cultivate long-term relationships with publishers and the extent to which a few key firms—such as Breitkopf & Härtel—dominated the music publishing industry for much of the nineteenth century (and beyond). The data have been gathered from the thematic catalogues of the individual composers, a list of which can be found on the Sources page.
+
+In 2019, the *International Review of the Aesthetics and Sociology of Music* (vol. 49, no. 2) published a small subset of the data as a static table in an article that I wrote called “The Negotiation of Nineteenth-Century Style: A Case Study in Composer–Publisher Relations” (p. 229). The present *Visual Guide* features an expanded array of composers and a far richer means of visual representation.
+
+<center><span style="color: #CD0000;">◀︎ • • • • • • • • • • • • ▶︎</span></center>
+
+#### Acknowledgements
+I am grateful to Dr. Rachel Starry for her thoughtful feedback concerning my development of the visualizations, as well as to the interdisciplinary Digital Scholarship Studio and Network at my home institution, the University at Buffalo (SUNY).
+
+<center><span style="color: #CD0000;">◀︎ • • • • • • • • • • • • ▶︎</span></center>
+
+#### How to Cite This Project
+Strykowski, Derek R. _A Visual Guide to Some Nineteenth-Century Composers and Their Publishers._ 2020. https://dstrykowski.shinyapps.io/visualguide/
+
+<hr>
+
+©2020 [Derek R. Strykowski](https://dstrykowski.com). This work is licensed under a [Creative Commons Attribution-NonCommercial 4.0 International License](http://creativecommons.org/licenses/by-nc/4.0/). The code is available on [GitHub](https://github.com/dstrykowski/visualguide).  
+&nbsp;  
+&nbsp;  
