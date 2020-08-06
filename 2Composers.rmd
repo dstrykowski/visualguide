@@ -14,7 +14,7 @@ Derek R. Strykowski, _University at Buffalo_
 &nbsp;  
 
 ## I. The Composers
-Nine composers are presently included in the guide: in alphabetical order, they are Ludwig van Beethoven (1770–1827), Hector Berlioz (1803–1869), Johannes Brahms (1833–1897), Antonín Dvořák (1841–1904), Gustav Mahler (1860–1911), Felix Mendelssohn (1809–1847), Clara Schumann (1819–1896), her husband Robert Schumann (1810-1856),  Richard Strauss (1864–1949), and Pyotr Tchaikovsky (1840–1893). Beethoven’s first publications date from the eighteenth century, while several others continued to compose well into the twentieth. Even so, all of the music that each composer published during his or her lifetime is included in the visualizations that follow.
+Ten composers are presently included in the guide: in alphabetical order, they are Ludwig van Beethoven (1770–1827), Hector Berlioz (1803–1869), Johannes Brahms (1833–1897), Antonín Dvořák (1841–1904), Edward MacDowell (1860–1908), Felix Mendelssohn (1809–1847), Clara Schumann (1819–1896), her husband Robert Schumann (1810-1856),  Richard Strauss (1864–1949), and Pyotr Tchaikovsky (1840–1893). Beethoven’s first publications date from the eighteenth century, while several others continued to compose well into the twentieth. Even so, all of the music that each composer published during his or her lifetime is included in the visualizations that follow.
 
 The chart below compares the total number of authorized first editions that each composer in the project published during his or her lifetime.
 
@@ -55,7 +55,7 @@ ggplot( aes(x = Composer, y = Publishers)) +
 ggplotly(publishers_per_composer)
 ```
 
-These numbers display a rough correlation to the total number of works that each composer published (above). For example, Ludwig van Beethoven worked with the greatest number of publishers and also published the most music. But the composer who worked with the fewest publishers was Johannes Brahms, who nevertheless published more music than several of the others.
+These numbers display a rough correlation to the total number of works that each composer published (above). For example, Ludwig van Beethoven worked with the greatest number of publishers and also published the most music. The composer who worked with the fewest publishers was Edward MacDowell, who also published less music than most of the others.
  
  <center><span style="color: #CD0000;">◀︎ • • • • • • • • • • • • ▶︎</span></center>
 
