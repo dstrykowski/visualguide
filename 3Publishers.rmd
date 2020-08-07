@@ -74,7 +74,11 @@ sankeyNetwork(Links = links, Nodes = nodes,
               fontSize = 12, sinksRight = FALSE)
 })
 
-sankeyNetworkOutput("publishing_network", width = "100%", height = "1200px")
+composers_compared <- read.csv(file = 'ComposersCompared.csv')
+
+renderUI({
+sankeyNetworkOutput("publishing_network", width = "100%", height = c(paste(as.character(subset(composers_compared, Composer == input$chosen_composer, select = "Editions")*4+150))))
+})
 
 output$ComposerName2 <- renderText(input$chosen_composer)
 
