@@ -1,5 +1,4 @@
 Composer,Publisher,City,Latitude,Longitude,Editions
-Tchaikovsky,À ses abonnés—le Gaulois,Paris,48.856614,2.352222,1
 Strauss,"Aibl, Joseph",Munich,48.135125,11.581981,30
 Tchaikovsky,"Albrekht, Karl",Moscow,55.755826,37.617300,2
 Dvořák,Album du Gaulois,Paris,48.856614,2.352222,1
@@ -109,6 +108,7 @@ Berlioz,La Romance,Paris?,48.856614,2.352222,1
 Berlioz,"Latte, Bernard",Paris,48.856614,2.352222,3
 Mendelssohn,Laue,Berlin,52.520007,13.404954,5
 Berlioz,"Le Duc, August",Paris,48.856614,2.352222,1
+Tchaikovsky,Le Gaulois,Paris,48.856614,2.352222,1
 Berlioz,Le Monde Musical,Paris,48.856614,2.352222,1
 Berlioz,Le Protée,Paris,48.856614,2.352222,1
 Berlioz,"Legouix, O.",Paris,48.856614,2.352222,1
