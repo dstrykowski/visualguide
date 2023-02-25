@@ -46,6 +46,11 @@ selectInput("chosen_composer",
             selectize = FALSE)
 
 output$ComposerName <- renderText(input$chosen_composer)
+
+checkboxInput("chosen_grouping", "Group by city", value = FALSE, width = NULL)
+
+output$GroupChoice <- renderText(input$chosen_grouping)
+
 ```
 
 ### Who Published the Music of  `r textOutput("ComposerName", inline = TRUE)`?
@@ -55,11 +60,30 @@ output$ComposerName <- renderText(input$chosen_composer)
 output$publishing_network <- renderSankeyNetwork({
 chosen_publishers <- subset(composer_publishers, 
                  Composer == input$chosen_composer, 
-                 select = c(1, 2, 3, 6))
+                 select = c(1, 3, 2, 6))
 
 chosen_publishers$Publisher <- c(paste(as.character(chosen_publishers$Publisher), " (", as.character(chosen_publishers$Editions), ")"))
 
-node_names <- unique(c(as.character(chosen_publishers$Composer), 
+grouped_publishers <- cbind(stack(chosen_publishers[1:2]), stack(chosen_publishers[2:3]), chosen_publishers[4])
+
+colnames(grouped_publishers) <- c("Source_names", "ind", "Dest_names", "ind", "Editions")
+
+if (input$chosen_grouping == TRUE){
+   node_names <- unique(c(as.character(chosen_publishers$Composer), 
+  as.character(chosen_publishers$City),as.character(chosen_publishers$Publisher)))
+nodes <- data.frame(name = node_names)
+
+links <- data.frame(
+  source = match(grouped_publishers[["Source_names"]], node_names) - 1, 
+  target = match(grouped_publishers[["Dest_names"]], node_names) - 1, 
+  value = grouped_publishers$Editions)
+ 
+sankeyNetwork(Links = links, Nodes = nodes,
+              Source = "source", Target = "target",
+              Value = "value", NodeID = "name", 
+              fontSize = 12, sinksRight = FALSE)
+} else {
+   node_names <- unique(c(as.character(chosen_publishers$Composer), 
   as.character(chosen_publishers$Publisher)))
 nodes <- data.frame(name = node_names)
 
@@ -72,6 +96,7 @@ sankeyNetwork(Links = links, Nodes = nodes,
               Source = "source", Target = "target",
               Value = "value", NodeID = "name", 
               fontSize = 12, sinksRight = FALSE)
+}
 })
 
 composers_compared <- read.csv(file = 'ComposersCompared.csv')
